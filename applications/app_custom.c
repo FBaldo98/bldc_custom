@@ -20,7 +20,7 @@ void powersteering_init(void) {
 	// palSetPadMode(HW_UART_TX_PORT, HW_UART_TX_PIN, PAL_MODE_INPUT_PULLDOWN);
 
     // Start the thread
-    chThdCreateStatic(ps_thread_wa, size_of(ps_thread_wa), NORMALPRIO, ps_thread, NULL);
+    chThdCreateStatic(ps_thread_wa, sizeof(ps_thread_wa), NORMALPRIO, ps_thread, NULL);
 }
 
 void LuenbergerInit(){
