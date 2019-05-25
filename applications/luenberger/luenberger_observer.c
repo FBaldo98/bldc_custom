@@ -57,8 +57,6 @@ void InitLuembergerMatrices(luenberger_matrices_t * self)
 	self->L->mat[5][0] = -324.0;
 	self->L->mat[5][1] = -10508.0;
 
-	x_prev = (matrix_t*)malloc(sizeof(matrix_t));
-	InitMatrix(x_prev, 6, 1, 0.0);
 }
 
 int LuenbergerObserver(matrix_t* u, matrix_t* y, matrix_t* x_hat, luenberger_matrices_t* matrices) {

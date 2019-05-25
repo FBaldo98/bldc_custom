@@ -4,7 +4,8 @@
 #include "mc_interface.h"
 #include "hw.h"
 #include "timeout.h"
-
+#include "matrix.h"
+#include "luenberger_observer.h"
 
 #ifdef APP_CUSTOM_TO_USE
 #include APP_CUSTOM_TO_USE
