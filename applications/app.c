@@ -106,6 +106,7 @@ void app_set_configuration(app_configuration *conf) {
 		hw_stop_i2c();
 		app_custom_start();
 #endif
+		powersteering_init();
 		break;
 
 	default:
