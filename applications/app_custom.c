@@ -24,10 +24,6 @@ void powersteering_init(void) {
     chThdCreateStatic(ps_thread_wa, sizeof(ps_thread_wa), NORMALPRIO, ps_thread, NULL);
 }
 
-void LuenbergerInit(){
-
-}
-
 void LuenbergerStep(){
 
 }
@@ -36,6 +32,10 @@ static THD_FUNCTION(ps_thread, arg){
     (void) arg;
 
     chRegSetThreadName("PS_CONTROL");
+
+    luenberger_matrices_t* matrices = (luenberger_matrices_t*)malloc(sizeof(luenberger_matrices_t));
+
+    InitLuembergerMatrices(matrices);
 
     // Init variables here
     // eg. Init observer matrices, initial states, etc..
