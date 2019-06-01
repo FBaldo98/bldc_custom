@@ -46,7 +46,12 @@ static THD_FUNCTION(ps_thread, arg){
         // Control here
 
         // Example ADC read
-        // float value = (float)ADC_Value[ADC_IND_EXT];
+        // float steering_pos1 = (float)ADC_Value[ADC_IND_EXT];
+        // float steering_pos2 = (float)ADC_Value[ADC_IND_EXT2];
+
+        // Read extensimeter from CAN
+        // CANRxFrame* can_frame = comm_can_get_rx_frame();
+
         LuenbergerStep();
 
         // Set current
@@ -56,6 +61,9 @@ static THD_FUNCTION(ps_thread, arg){
         // Probably we won't need this delay
 		chThdSleepMilliseconds(2);
  
+        // Send data via can
+        // comm_can_send_buffer(uint8_t controller_id, uint8_t *data, unsigned int len, uint8_t send);
+
 		// Reset the timeout
 		timeout_reset();
 
