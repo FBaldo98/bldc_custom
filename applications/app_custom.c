@@ -24,10 +24,6 @@ void powersteering_init(void) {
     chThdCreateStatic(ps_thread_wa, sizeof(ps_thread_wa), NORMALPRIO, ps_thread, NULL);
 }
 
-void LuenbergerStep(){
-
-}
-
 static THD_FUNCTION(ps_thread, arg){
     (void) arg;
 
@@ -37,6 +33,14 @@ static THD_FUNCTION(ps_thread, arg){
 
     InitLuembergerMatrices(matrices);
 
+    // Defines the max difference between the 2 position sensors
+    float max_pos_diff = 100;
+
+    // Init  input matrix
+    // Define size
+    matrix_t* input;
+    InitMatrix(input, 2, 1, 0.0);
+
     // Init variables here
     // eg. Init observer matrices, initial states, etc..
     LuenbergerInit();
@@ -45,14 +49,21 @@ static THD_FUNCTION(ps_thread, arg){
         // Infinite loop
         // Control here
 
-        // Example ADC read
-        // float steering_pos1 = (float)ADC_Value[ADC_IND_EXT];
-        // float steering_pos2 = (float)ADC_Value[ADC_IND_EXT2];
+        // ADC read
+        float steering_pos1 = (float)ADC_Value[ADC_IND_EXT];
+        float steering_pos2 = (float)ADC_Value[ADC_IND_EXT2];
+
+        if(abs(steering_pos1 - steering_pos2) >= max_pos_diff){
+            // Call fault function
+            break;
+        }
 
         // Read extensimeter from CAN
-        // CANRxFrame* can_frame = comm_can_get_rx_frame();
+        float extensimeter = 0.0;
 
-        LuenbergerStep();
+        // Create matrices for the observer input
+
+        // Luenberger step here
 
         // Set current
         // mc_interface_set_current(2.0);
